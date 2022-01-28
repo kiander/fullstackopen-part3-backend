@@ -1,7 +1,16 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
+
+
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
+
 app.use(express.json())
+app.use(cors())
 
 app.use(
     morgan((tokens, req, res) => {
@@ -81,7 +90,7 @@ app.post('/api/persons', (req, res) => {
         })
     }
 
-    if(persons.find(person => person.name === body.name)){
+    if (persons.find(person => person.name === body.name)) {
         return res.status(400).json({
             error: 'name already in list'
         })
@@ -104,29 +113,3 @@ const generateId = (min = 0, max = 10000) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 }
-
-
-// app.post('/api/persons', (req, res) => {
-//     const body = req.body
-
-//     if (!body.content) {
-//         return res.status(400).json({
-//             error: 'content missing'
-//         })
-//     }
-
-//     const persons = {
-//         content: body.content,
-//         important: body.important || false,
-//         date: new Date(),
-//         id: generateId(),
-//     }
-
-//     personss = personss.concat(persons)
-
-//     res.json(persons)
-// })
-
-const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
