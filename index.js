@@ -60,7 +60,7 @@ app.get('/api/persons', (req, res) => {
 
 app.get('/info', (req, res) => {
     const date = new Date();
-    res.send(`<p>Phonebook has info for ${persons.length} people</p>`)
+    res.send(`<p>${date}</p><p>Phonebook has info for ${persons.length} people</p>`)
 })
 
 app.get('/api/persons/:id', (req, res) => {
